@@ -22,27 +22,58 @@ function App() {
     }
   ]);
 
+  const [todoInput,setToDoInput] = useState();
+  const [idfortodo,setidfortodo] = useState(4);
+
+  function addTodos(event){
+    event.preventDefault();
+
+    if(todoInput.trim().length === 0){
+      return;
+    }
+
+    setToDo([...todos, {
+      id: idfortodo,
+      title:todoInput,
+      isComplete: true
+    }])
+
+    setToDoInput();
+    setidfortodo(prevIdForTodo => prevIdForTodo + 1);
+  }
+
+  function deleteTodo(id){
+    setToDo([...todos].filter(todo => todo.id !== id));
+  }
+
+  function handelInput(event){
+    setToDoInput(event.target.value)
+  }
+
+
   return (
     <div className="todo-app-container">
       <div className="todo-app">
         <h2>Todo App</h2>
-        <form action="#">
+        <form action="#" onSubmit={addTodos}>
           <input
             type="text"
+            value={todoInput}
+            onChange={handelInput}
             className="todo-input"
             placeholder="What do you need to do?"
           />
         </form>
-
         <ul className="todo-list">
+
           { todos.map((todo,index) => (
-            <li className="todo-item-container">
+            <li key={todo.id} className="todo-item-container">
             <div className="todo-item">
               <input type="checkbox" />
               <span className="todo-item-label">{ todo.title }</span>
               {/* <input type="text" className="todo-item-input" value="Finish React Series" /> */}
             </div>
-            <button className="x-button">
+            <button onClick={() => deleteTodo(todo.id)} className="x-button">
               <svg
                 className="x-button-icon"
                 fill="none"
@@ -58,7 +89,7 @@ function App() {
               </svg>
             </button>
           </li>
-          ))};
+          ))}
         </ul>
 
         <div className="check-all-container">

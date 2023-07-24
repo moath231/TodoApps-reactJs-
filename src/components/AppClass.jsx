@@ -26,12 +26,18 @@ export default class AppClass extends Component {
     };
   }
 
+  addTodos = event => {
+    event.preventDefault();
+
+  }
+
+
   render() {
     return (
       <div className="todo-app-container">
       <div className="todo-app">
         <h2>Todo App</h2>
-        <form action="#">
+        <form action="#" >
           <input
             type="text"
             className="todo-input"
