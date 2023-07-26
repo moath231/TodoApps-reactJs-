@@ -1,15 +1,12 @@
-import React from 'react'
+import React from 'react';
 import PropTypes, { func } from 'prop-types';
 
-
 ItemRemaining.prototype = {
-  remaining: PropTypes.func.isRequired
-}
+  remaining : PropTypes.func.isRequired,
+};
 
 function ItemRemaining(props) {
-  return (
-    <span>{props.remaining()} items remaining</span>
-  )
+  return <span>{props.remaining()} items remaining</span>;
 }
 
-export default ItemRemaining
+export default ItemRemaining;

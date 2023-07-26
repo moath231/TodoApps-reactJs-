@@ -1,13 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-function Todocheckall(props){
+function Todocheckall(props) {
   return (
-    <div 
-      onClick={props.checkAll}
-      className="button">
-        Check All
+    <div onClick = {props.checkAll} className = "button">
+      Check All
     </div>
-  )
+  );
 }
 
-export default Todocheckall
+export default Todocheckall;
