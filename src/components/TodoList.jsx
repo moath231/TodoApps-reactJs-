@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes, { func } from 'prop-types';
 import ItemRemaining from './ItemRemaining';
 import TodoClearCompleted from './TodoClearCompleted';
@@ -9,6 +9,7 @@ TodoList.propTypes = {
   todos: PropTypes.array.isRequired,
   completeTodo: PropTypes.func.isRequired,
   markAsEditing: PropTypes.func.isRequired,
+  todosFiltered: PropTypes.func.isRequired,
   updateTodo: PropTypes.func.isRequired,
   canceleditTodo: PropTypes.func.isRequired,
   deleteTodo: PropTypes.func.isRequired,
@@ -18,10 +19,14 @@ TodoList.propTypes = {
 }
 
 export default function TodoList(props) {
+
+const [filter,setfilter] = useState('all');
+
+
 return (
 <div>
   <ul className="todo-list">
-    { props.todos.map((todo,index) => (
+    { props.todosFiltered(filter).map((todo,index) => (
     <li key={todo.id} className="todo-item-container ">
       <div className="todo-item ">
         <input type="checkbox" onChange={ ()=> props.completeTodo(todo.id) } checked={todo.isComplete ? 'checked' : ''}/>
@@ -58,17 +63,21 @@ return (
 
   <div className="check-all-container">
     <div>
-      <Todocheckall checkAll={props.checkAll}/>
+      <Todocheckall checkAll={props.checkAll} />
     </div>
 
-    <ItemRemaining remaining={props.remaining}/>
+    <ItemRemaining remaining={props.remaining} />
   </div>
 
   <div className="other-buttons-container">
-    <FilterTodo />
+    <FilterTodo 
+      todosFiltered={props.todosFiltered}
+      filter={filter}
+      setFilter={setfilter}
+    />
 
     <div>
-      <TodoClearCompleted ClearCompleted={props.ClearCompleted}/>
+      <TodoClearCompleted ClearCompleted={props.ClearCompleted} />
     </div>
   </div>
 </div>

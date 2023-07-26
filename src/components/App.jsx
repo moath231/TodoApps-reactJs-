@@ -118,6 +118,17 @@ function App() {
     setToDo(updateTodo);
   }
 
+
+  function todosFiltered(filter){
+    if(filter === 'all'){
+      return todos;
+    }else if(filter === 'active'){
+      return todos.filter(todo => !todo.isComplete);
+    }else if(filter === 'completed'){
+      return todos.filter(todo => todo.isComplete);
+    }
+  }
+
   return (
     <div className="todo-app-container">
       <div className="todo-app">
@@ -135,6 +146,7 @@ function App() {
               remaining={remaining}
               ClearCompleted={ClearCompleted}
               checkAll={checkAll}
+              todosFiltered={todosFiltered}
             />
           ) 
           : 
