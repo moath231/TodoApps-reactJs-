@@ -2,38 +2,15 @@ import { useEffect, useRef, useState } from 'react';
 import NoTodos from './NoTodos';
 import FormTodo from './FormTodo';
 import TodoList from './TodoList';
+import useLocalStorage from '../hooks/useLocalStorage';
 import '../reset.css';
 import '../App.css';
 
 function App() {
-  const [todos, setToDo] = useState([
-    {
-      id         : 1,
-      title      : 'Finish React Series',
-      isComplete : false,
-      isediting  : false,
-    },
-    {
-      id         : 2,
-      title      : 'Go to Grocery',
-      isComplete : true,
-      isediting  : false,
-    },
-    {
-      id         : 3,
-      title      : 'Do other thing',
-      isComplete : false,
-      isediting  : false,
-    },
-  ]);
-
-  const [name, setName]           = useState('');
+  const [todos, setToDo]          = useLocalStorage('todos', []);
+  const [name, setName]           = useLocalStorage('name', '');
   const nameInputEl               = useRef(null);
-  const [idfortodo, setidfortodo] = useState(4);
-
-  useEffect(() => {
-    console.log('askjhsfhkjs');
-  });
+  const [idfortodo, setidfortodo] = useLocalStorage('idForTodos', 1);
 
   function addTodos(todo) {
     setToDo([
@@ -133,20 +110,29 @@ function App() {
     }
   }
 
+  useEffect(() => {
+    nameInputEl.current.focus();
+        // setName(JSON.parse(localStorage.getItem('name')) ?? '');
+  });
+
+  function handelNameInput(event) {
+    setName(event.currentTarget.value);
+        // localStorage.setItem('name',JSON.stringify(event.currentTarget.value));
+  }
+
   return (
     <div className = "todo-app-container">
       <div className = "todo-app">
         <div className = "name-container">
           <h2>what is your name?</h2>
-          <button onClick = {() => nameInputEl.current.focus()}>Get Ref</button>
-          <form   action  = "#">
+          <form action = "#">
             <input
               type        = "text"
               ref         = {nameInputEl}
               className   = "todo-input"
               placeholder = "What is your name"
               name        = {name}
-              onChange    = {(event) => setName(event.currentTarget.value)}
+              onChange    = {handelNameInput}
             />
           </form>
           {name && <p className="name-label"> hello, {name}</p>}
@@ -175,4 +161,3 @@ function App() {
 }
 
 export default App;
-

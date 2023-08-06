@@ -229,3 +229,7 @@ nav ul li:not(:first-child) {
   transition : all 300ms;
   transform  : translateX(20px);
 }
+
+.taggels-container{
+  margin-top : 30px;
+}
